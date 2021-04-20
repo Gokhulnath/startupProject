@@ -5,7 +5,10 @@ def index(request):
     return render(request,"pages/index.html")
 
 def product(request):
-    return render(request,"pages/product.html")
+    return render(request,"pages/productDetail.html")
+
+def shop(request):
+    return render(request,"pages/shopDetail.html")
 
 def shoplist(request):
     return render(request,"pages/shopList.html")
