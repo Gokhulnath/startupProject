@@ -1,6 +1,8 @@
 #website views.py
 from django.shortcuts import render
 from shop.models import Advertisement, Shop, Product
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 # Create your views here.
 def index(request):
@@ -15,20 +17,8 @@ def index(request):
     else:
         return render(request,"pages/index.html")
 
-def product(request):
-    return render(request,"pages/productDetail.html")
-
-def shop(request):
-    return render(request,"pages/shopDetail.html")
-
-def shoplist(request):
-    return render(request,"pages/shopList.html")
-
 def cart(request):
     return render(request,"pages/shopping-cart.html")
-
-def shopProducts(request):
-    return render(request,"pages/shopProducts.html")
 
 def faq(request):
     return render(request,"pages/faq.html")
@@ -45,8 +35,34 @@ def blog(request):
 def post(request):
     return render(request,"pages/blog-details.html")
 
-def login(request):
-    return render(request,"accounts/login.html")
-
-def register(request):
-    return render(request,"accounts/register.html")
+def search(request):
+    productList = Product.objects.all().order_by('-list_date').filter(is_published=True)
+    final_search_list =[]
+    if 'keyword' in request.GET:
+        keyword = request.GET['keyword']
+        temp=[]
+        ref_list=[]
+        if keyword:
+            ref = Shop.objects.all().filter(name__icontains=keyword)
+            if ref:
+                for t in ref:
+                    ref_list.append(t.id)
+                for i in ref_list:
+                    temp.append(productList.filter(shop=i))
+            temp.append(productList.filter(name__icontains=keyword))
+            temp.append(productList.filter(description_1__icontains=keyword))
+            temp.append(productList.filter(description_main__icontains=keyword))
+            temp.append(productList.filter(tag__icontains=keyword))
+            temp.append(productList.filter(category__icontains=keyword))
+            temp.append(productList.filter(product_type__icontains=keyword))
+            if temp:
+                for s in temp:
+                    if s:
+                        for k in s:
+                            final_search_list.append(k)
+    final_search_list = set(final_search_list)
+    paginator = Paginator(list(final_search_list), 9)
+    page = request.GET.get('page')
+    paged_listings = paginator.get_page(page)
+    context={'productList':paged_listings, 'title': "Search results for \""+request.GET['keyword']+"\""}
+    return render(request,"pages/shopProducts.html", context)
