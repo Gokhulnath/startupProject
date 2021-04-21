@@ -6,20 +6,11 @@ from django.conf.urls.static import static
 from django.views.static import serve 
 from . import views
 urlpatterns =[
-    path('',views.index, name='index'),
-    path('index/',views.index, name='index'),
-    path('product/',views.product, name='product'),
-    path('shop/',views.shop, name='shop'),
-    path('shoplist/',views.shoplist, name='shoplist'),
-    path('cart/',views.cart, name='cart'),
-    path('shopProducts/',views.shopProducts, name='shopProducts'),
-    path('faq/',views.faq, name='faq'),
-    path('contact/',views.contact, name='contact'),
-    path('checkout/',views.checkout, name='checkout'),
-    path('blog/',views.blog, name='blog'),
-    path('post/',views.post, name='post'),
     path('login/',views.login, name='login'),
     path('register/',views.register, name='register'),
+    path('logout/',views.logout, name='logout'),
+    path('dashboard/',views.dashboard, name='dashboard'),
+    path('wishlist/',views.wishlist, name='wishlist'),
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]

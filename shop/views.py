@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from .models import Shop, Product
+from account.models import WishList
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+import json
 
 def shop(request, shop):
     shop_detail = Shop.objects.get(slug=shop)
@@ -28,7 +29,23 @@ def shopProducts(request):
 
 def product(request, product, shop):
     product_detail = Product.objects.get(slug=product)
-    context = {'product': product_detail}
+    add=False
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        try:
+            is_available = WishList.objects.get(user_id_id=user_id)
+        except WishList.DoesNotExist:
+            is_available = None
+        if is_available:
+            jsonDec = json.decoder.JSONDecoder()
+            Wlist = jsonDec.decode(is_available.wish_list)
+            if not Wlist:
+                add=False
+            if str(product_detail.id) in Wlist:
+                add=True
+            else:
+                add=False
+    context = {'product': product_detail, 'add':add}
     return render(request,"pages/productDetail.html", context)
 
 def shopProductsList(request, shop):

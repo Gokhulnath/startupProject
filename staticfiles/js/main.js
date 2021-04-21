@@ -238,5 +238,7 @@
 		}
 		$button.parent().find('input').val(newVal);
 	});
-
+    setTimeout(function() {
+        $(".alert").fadeOut('slow');
+	}, 3000);
 })(jQuery);

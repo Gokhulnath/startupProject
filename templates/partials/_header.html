@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="ht-right">
-        <a href="{% url 'login' %}" class="login-panel"><i class="fa fa-user"></i>Login</a>
+        <!-- <a href="{% url 'login' %}" class="login-panel"><i class="fa fa-user"></i>Login</a> -->
         <div class="top-social">
           <a href="#"><i class="ti-facebook"></i></a>
           <a href="#"><i class="ti-twitter-alt"></i></a>
@@ -44,12 +44,6 @@
         </div>
         <div class="col-lg-3 text-right col-md-3">
           <ul class="nav-right">
-            <li class="heart-icon">
-              <a href="#">
-                <i class="icon_heart_alt"></i>
-                <span>1</span>
-              </a>
-            </li>
             <li class="cart-icon">
               <a href="{% url 'cart' %}">
                 <i class="icon_bag_alt"></i>
@@ -124,13 +118,29 @@
           <li {% if 'faq' in request.path %} 
             class="active"
             {% endif %}><a href="{% url 'faq' %}">Faq</a></li>
+          {% if user.is_authenticated %} 
+            <li {% if 'dashboard' in request.path %} 
+            class="active"
+            {% endif %}><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li {% if 'logout' in request.path %} 
+            class="active"
+            {% endif %}><a href="javascript:{document.getElementById('logout').submit()}">Logout</a></li>
+          {% else %}
           <li {% if 'register' in request.path %} 
             class="active"
-            {% endif %}><a href="{% url 'register' %}">Account</a></li>
+            {% endif %}><a href="{% url 'register' %}">Register</a></li>
+            <li {% if 'login' in request.path %} 
+            class="active"
+            {% endif %}><a href="{% url 'login' %}">Login</a></li>
+          {% endif %}
         </ul>
       </nav>
       <div id="mobile-menu-wrap"></div>
     </div>
   </div>
+  <form action="{% url 'logout' %}" method="POST" id="logout">
+    {% csrf_token %}
+    <input type="hidden">
+  </form>
 </header>
 <!-- Header End -->
