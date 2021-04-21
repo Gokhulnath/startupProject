@@ -7,6 +7,7 @@ urlpatterns =[
     path('<slug:shop>',views.shop, name='shop'),
     path('shoplist/',views.shoplist, name='shoplist'),
     path('shopProducts/',views.shopProducts, name='shopProducts'),
+    path('shopProducts/<slug:shop>',views.shopProductsList, name='shopProductsList'),
     path('<slug:shop>/<slug:product>',views.product, name='product'),
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),

@@ -42,7 +42,7 @@
 <!-- Hero Section End -->
 
 <!-- Banner Section Begin -->
-<div class="banner-section spad">
+<!-- <div class="banner-section spad">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4">
@@ -71,279 +71,112 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Banner Section End -->
 
 <!-- Women Banner Section Begin -->
+{% if ad_shop_1 and ad_shop_2 %}
 <section class="women-banner spad">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3">
-                <div class="product-large set-bg" data-setbg="{% static 'img/products/women-large.jpg'%}">
-                    <h2>Women’s</h2>
-                    <a href="#">Discover More</a>
+                <div class="product-large set-bg" data-setbg="{% cropped_thumbnail ad_shop_1 'feature_photo_crop' %}">
+                    <h2>{{ ad_shop_1.name }}</h2>
+                    <a href="{% url 'shop' shop=ad_shop_1.slug %}">Discover More</a>
                 </div>
             </div>
             <div class="col-lg-8 offset-lg-1">
                 <div class="filter-control">
                     <ul>
-                        <li class="active">Clothings</li>
-                        <li>HandBag</li>
-                        <li>Shoes</li>
-                        <li>Accessories</li>
+                        <li class="active">{{ ad_shop_1.shop_type }}</li>
                     </ul>
                 </div>
                 <div class="product-slider owl-carousel">
+                    {% for product in ad_products_1%}
                     <div class="product-item">
                         <div class="pi-pic">
-                            <img src="{% static 'img/products/women-1.jpg'%}" alt="">
+                            <img src="{% cropped_thumbnail product 'profile_photo_crop' %}" alt="">
                             <div class="sale">Sale</div>
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
                             <ul>
                                 <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                <li class="quick-view"><a href="{% url 'product' product=product.slug shop=product.shop.slug %}">+ Quick View</a></li>
                                 <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                             </ul>
                         </div>
                         <div class="pi-text">
-                            <div class="catagory-name">Coat</div>
+                            <div class="catagory-name">{{ product.product_type }}</div>
                             <a href="#">
-                                <h5>Pure Pineapple</h5>
+                                <h5>{{ product.name }}</h5>
                             </a>
                             <div class="product-price">
-                                <span>&#8377;</span> 14.00
-                                <span><span>&#8377;</span> 35.00</span>
+                                <span>&#8377;</span> {{ product.original_rate }}
+                                {% if product.discounted_rate %}
+                                <span><span>&#8377;</span> {{ product.discounted_rate }}</span>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{% static 'img/products/women-2.jpg'%}" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Shoes</div>
-                            <a href="#">
-                                <h5>Guangzhou sweater</h5>
-                            </a>
-                            <div class="product-price">
-                                <span>&#8377;</span> 13.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{% static 'img/products/women-3.jpg'%}" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                <span>&#8377;</span> 34.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{% static 'img/products/women-4.jpg'%}" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Converse Shoes</h5>
-                            </a>
-                            <div class="product-price">
-                                <span>&#8377;</span> 34.00
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Women Banner Section End -->
 
-<!-- Deal Of The Week Section Begin-->
-<section class="deal-of-week set-bg spad" data-setbg="{% static 'img/time-bg.jpg'%}">
-    <div class="container">
-        <div class="col-lg-6 text-center">
-            <div class="section-title">
-                <h2>Deal Of The Week</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed<br /> do ipsum dolor sit amet,
-                    consectetur adipisicing elit </p>
-                <div class="product-price">
-                    <span>&#8377;</span> 35.00
-                    <span>/ HanBag</span>
-                </div>
-            </div>
-            <div class="countdown-timer" id="countdown">
-                <div class="cd-item">
-                    <span>56</span>
-                    <p>Days</p>
-                </div>
-                <div class="cd-item">
-                    <span>12</span>
-                    <p>Hrs</p>
-                </div>
-                <div class="cd-item">
-                    <span>40</span>
-                    <p>Mins</p>
-                </div>
-                <div class="cd-item">
-                    <span>52</span>
-                    <p>Secs</p>
-                </div>
-            </div>
-            <a href="#" class="primary-btn">Shop Now</a>
-        </div>
-    </div>
-</section>
-<!-- Deal Of The Week Section End -->
-
-<!-- Man Banner Section Begin -->
-<section class="man-banner spad">
+<section class="women-banner spad">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-8 offset-lg-1">
                 <div class="filter-control">
                     <ul>
-                        <li class="active">Clothings</li>
-                        <li>HandBag</li>
-                        <li>Shoes</li>
-                        <li>Accessories</li>
+                        <li class="active">{{ ad_shop_2.shop_type }}</li>
                     </ul>
                 </div>
                 <div class="product-slider owl-carousel">
+                    {% for product in ad_products_2%}
                     <div class="product-item">
                         <div class="pi-pic">
-                            <img src="{% static 'img/products/man-1.jpg'%}" alt="">
+                            <img src="{% cropped_thumbnail product 'profile_photo_crop' %}" alt="">
                             <div class="sale">Sale</div>
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
                             <ul>
                                 <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                <li class="quick-view"><a href="{% url 'product' product=product.slug shop=product.shop.slug %}">+ Quick View</a></li>
                                 <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                             </ul>
                         </div>
                         <div class="pi-text">
-                            <div class="catagory-name">Coat</div>
+                            <div class="catagory-name">{{ product.product_type }}</div>
                             <a href="#">
-                                <h5>Pure Pineapple</h5>
+                                <h5>{{ product.name }}</h5>
                             </a>
                             <div class="product-price">
-                                <span>&#8377;</span> 14.00
-                                <span><span>&#8377;</span> 35.00</span>
+                                <span>&#8377;</span> {{ product.original_rate }}
+                                {% if product.discounted_rate %}
+                                <span><span>&#8377;</span> {{ product.discounted_rate }}</span>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{% static 'img/products/man-2.jpg'%}" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Shoes</div>
-                            <a href="#">
-                                <h5>Guangzhou sweater</h5>
-                            </a>
-                            <div class="product-price">
-                                <span>&#8377;</span> 13.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{% static 'img/products/man-3.jpg'%}" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                <span>&#8377;</span> 34.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{% static 'img/products/man-4.jpg'%}" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Converse Shoes</h5>
-                            </a>
-                            <div class="product-price">
-                                <span>&#8377;</span> 34.00
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
-            <div class="col-lg-3 offset-lg-1">
-                <div class="product-large set-bg m-large" data-setbg="{% static 'img/products/man-large.jpg'%}">
-                    <h2>Men’s</h2>
-                    <a href="#">Discover More</a>
+            <div class="col-lg-3">
+                <div class="product-large set-bg" data-setbg="{% cropped_thumbnail ad_shop_2 'feature_photo_crop' %}">
+                    <h2>{{ ad_shop_2.name }}</h2>
+                    <a href="{% url 'shop' shop=ad_shop_2.slug %}">Discover More</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Man Banner Section End -->
+
+{% endif %}
 
 <!-- Instagram Section Begin -->
 <div class="instagram-photo">
@@ -387,7 +220,7 @@
 <!-- Instagram Section End -->
 
 <!-- Latest Blog Section Begin -->
-<section class="latest-blog spad">
+<!-- <section class="latest-blog spad">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -499,7 +332,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!-- Latest Blog Section End -->
 
 {% endblock %}

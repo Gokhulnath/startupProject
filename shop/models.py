@@ -38,8 +38,7 @@ class Shop(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        # return reverse('shop', args=[self.slug])
-        return reverse('shop')
+        return reverse('shop', args=[self.slug])
 
 
 class Product(models.Model):
@@ -76,5 +75,15 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        # return reverse('product', args=[self.slug])
-        return reverse('product')
+        return reverse('product', args=[self.shop.slug,self.slug])
+
+class Advertisement(models.Model):
+    shop = models.ForeignKey(Shop, default = 1, on_delete=models.CASCADE)
+    ad_name = models.CharField(max_length=200)
+    slug = models.SlugField(null=False, unique=True, max_length=200)
+    is_published = models.BooleanField(default=True)
+    approved_by = models.CharField(max_length=200)
+    list_date = models.DateTimeField(default=datetime.now, blank=True)
+
+    def __str__(self):
+        return self.ad_name

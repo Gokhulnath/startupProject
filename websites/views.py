@@ -1,8 +1,18 @@
 from django.shortcuts import render
+from shop.models import Advertisement, Shop, Product
 
 # Create your views here.
 def index(request):
-    return render(request,"pages/index.html")
+    ads = Advertisement.objects.filter(is_published=True).order_by('-list_date')[:2]
+    if len(ads)==2:
+        ad_shop_1 = Shop.objects.get(id=ads[0].shop.id)
+        ad_products_1 = Product.objects.filter(shop=ads[0].shop.id).filter(is_published=True).order_by('-list_date')
+        ad_shop_2 = Shop.objects.get(id=ads[1].shop.id)
+        ad_products_2 = Product.objects.filter(shop=ads[1].shop.id).filter(is_published=True).order_by('-list_date')
+        context ={ 'ad_shop_1':ad_shop_1, 'ad_products_1':ad_products_1, 'ad_shop_2':ad_shop_2, 'ad_products_2':ad_products_2}
+        return render(request,"pages/index.html", context)
+    else:
+        return render(request,"pages/index.html")
 
 def product(request):
     return render(request,"pages/productDetail.html")
