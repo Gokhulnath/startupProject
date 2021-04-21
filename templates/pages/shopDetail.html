@@ -23,47 +23,42 @@
             <div class="col-lg-12">
                 <div class="blog-details-inner">
                     <div class="blog-detail-title">
-                        <h2>The Personality Trait That Makes People Happier</h2>
-                        <p>Owner Name</p>
+                        <h2>{{shop.name}}</h2>
+                        <p>{{shop.owner_name}}</p>
                     </div>
                     <div class="blog-large-pic">
-                        <img src="{% static 'img/blog/blog-detail.jpg' %}" alt="">
+                        <img src="{% cropped_thumbnail shop 'slider_photo_crop' %}" alt="">
                     </div>
                     <div class="blog-detail-desc">
-                        <p>psum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor sit
-                            amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.
+                        <p>{{shop.description_1|safe}}
                         </p>
                     </div>
                     <div class="blog-more">
                         <div class="row justify-content-center">
+                            {% if shop.photo_1%}
                             <div class="col-sm-4">
-                                <img src="{% static 'img/blog/blog-detail-1.jpg' %}" alt="">
+                                <img src="{% cropped_thumbnail shop 'photo_1_crop' %}" alt="">
                             </div>
+                            {% endif %}
+                            {% if shop.photo_2 %}
                             <div class="col-sm-4">
-                                <img src="{% static 'img/blog/blog-detail-2.jpg' %}" alt="">
+                                <img src="{% cropped_thumbnail shop 'photo_2_crop' %}" alt="">
                             </div>
+                            {% endif %}
+                            {% if shop.photo_3 %}
                             <div class="col-sm-4">
-                                <img src="{% static 'img/blog/blog-detail-3.jpg' %}" alt="">
+                                <img src="{% cropped_thumbnail shop 'photo_3_crop' %}" alt="">
                             </div>
+                            {% endif %}
                         </div>
                     </div>
-                    <p>Sum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                        et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                        nisi ut aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor sit amet,
-                        consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.</p>
+                    <p>{{description_2|safe}}</p>
                     <div class="tag-share">
                         <div class="details-tag">
                             <ul>
                                 <li><i class="fa fa-tags"></i></li>
-                                <li>Travel</li>
-                                <li>Beauty</li>
-                                <li>StartUp-Hubon</li>
+                                <li>{{ shop.tag }}</li>
+
                             </ul>
                         </div>
                         <div class="blog-share">
@@ -83,11 +78,9 @@
                         </div>
                         <div class="pb-text">
                             <a href="#">
-                                <h5>Shane Lynch</h5>
+                                <h5>{{ shop.owner_name }}</h5>
                             </a>
-                            <p>Aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                velit esse cillum bore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                amodo</p>
+                            <p>{{ shop.owner_view | safe }}</p>
                         </div>
                     </div>
                 </div>
